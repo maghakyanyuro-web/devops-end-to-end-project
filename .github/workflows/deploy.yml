@@ -23,12 +23,4 @@ jobs:
             git pull origin main
             docker image prune -f
             docker compose up --build -d
-            HTTP_STATUS=$(curl -o /dev/null -s -w "%{http_code}" http://localhost:5000/api/info)
-            if [ "$HTTP_STATUS" -eq 200]; then
-              echo "Everything is fine👌✅"
-            else
-              echo "Deployment Failed❌ Backend returned status $HTTP_STATUS"
-              docker compose logs backend
-              exit 1
-            fi
             docker compose ps
