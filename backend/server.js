@@ -10,7 +10,7 @@ mongoose.connect(MONGO_URI)
   .catch(err => console.error('DB Connection Error:', err));
 
 app.get('/api/info', (req, res) => {
-  res.json({ message: "Ողջույն DevOps նախագծից!", status: "Backend-ը աշխատում է" });
+  res.json({ message: "Ողջույն DevOps նախագիծ!", status: "Backend-ը աշխատում է" });
 });
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

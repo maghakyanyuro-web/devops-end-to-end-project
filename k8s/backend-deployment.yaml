@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deployment
+spec:
+  replicas: 2  # Սա Junior-ի համար կարևոր է՝ ունենալ 2 պատճեն (High Availability)
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+      - name: backend-container
+        image: my-backend:v1
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 5000
+        env:
+        - name: MONGO_URI
+          value: "mongodb://mongo-service:27017/devops_db"
