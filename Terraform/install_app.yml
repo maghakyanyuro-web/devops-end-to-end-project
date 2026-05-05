@@ -1,24 +1,24 @@
 ---
-- hosts: new_servers
+- name: Deploy DevOps Mission Control App
+  hosts: new_servers
   become: yes
   tasks:
-    - name: Install Docker
+    - name: Update apt and install Docker & Docker Compose
       apt:
-        name: docker.io
+        name:
+          - docker.io
+          - docker-compose
         state: present
         update_cache: yes
 
-    - name: Start Docker service
-      service:
-        name: docker
-        state: started
-        enabled: yes
+    - name: Clone the project repository
+      git:
+        repo: https://github.com/maghakyanyuro-web/devops-end-to-end-project
+        dest: /home/ubuntu/app
+        force: yes
 
-    - name: Run a simple Web Container
-      docker_container:
-        name: junior-dashboard
-        image: nginx:latest
-        state: started
-        ports:
-          - "8080:80"
+    - name: Start the Application using Docker Compose
+      shell: |
+        cd /home/ubuntu/app
+        docker-compose up -d
 
